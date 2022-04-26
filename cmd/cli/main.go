@@ -8,7 +8,8 @@ import (
 
 func main() {
 	words := words.NewWordsFromFile("./dict.txt")
-	fmt.Println(words.WordList)
-	fmt.Println(len(words.WordList))
-	fmt.Println(words.ReducedList)
+	fmt.Println(len(words.FullList()))
+	fmt.Println(words.FullList())
+	fmt.Println(len(words.ReducedList()))
+	fmt.Println(words.ReducedList())
 }

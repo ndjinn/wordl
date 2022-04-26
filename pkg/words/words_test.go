@@ -17,9 +17,10 @@ func TestWordsFromFile(t *testing.T) {
 	randomcase := NewWordsFromFile(randomcaseFile)
 	uppercase := NewWordsFromFile(uppercaseFile)
 
-	assert.Equal(t, words, lowercase.WordList)
-	assert.Equal(t, words, randomcase.WordList)
-	assert.Equal(t, words, uppercase.WordList)
+	assert.ElementsMatch(t, words, lowercase.FullList())
+	assert.ElementsMatch(t, words, randomcase.FullList())
+	assert.ElementsMatch(t, words, uppercase.FullList())
+	assert.ElementsMatch(t, uppercase.ReducedList(), uppercase.FullList())
 }
 
 func TestInWords(t *testing.T) {
@@ -29,10 +30,10 @@ func TestInWords(t *testing.T) {
 	words := NewWordsFromFile(lowercaseFile)
 
 	for _, val := range expectedTrue {
-		assert.True(t, words.InWords(val))
+		assert.True(t, words.InFullWords(val))
 	}
 
 	for _, val := range expectedFalse {
-		assert.False(t, words.InWords(val))
+		assert.False(t, words.InFullWords(val))
 	}
 }
