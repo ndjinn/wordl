@@ -13,9 +13,11 @@ func NewGuess(guess string, target string) *Guess {
 	return g
 }
 
-func (g *Guess) printResultColor() {
+func (g *Guess) ResultColorString() string {
+	result := ""
 	for _, v := range g.Result {
-		v.printLetterResultColor()
+		result = result + v.letterResultColorString()
 	}
-	fmt.Println()
+	fmt.Println(result)
+	return result
 }

@@ -82,9 +82,9 @@ func (r ResultColor) bgColor() color.Color {
 	return c
 }
 
-func (r ResultColor) printResultColor(s string) {
+func (r ResultColor) resultColorString(s string) string {
 	c := color.New(r.fgColor(), r.bgColor())
-	c.Print(s)
+	return c.Sprint(s)
 }
 
 type LetterResult struct {
@@ -92,8 +92,8 @@ type LetterResult struct {
 	Result ResultColor
 }
 
-func (l *LetterResult) printLetterResultColor() {
-	l.Result.printResultColor(l.Letter)
+func (l *LetterResult) letterResultColorString() string {
+	return l.Result.resultColorString(l.Letter)
 }
 
 func LetterResultsFromDiff(guess string, target string) []LetterResult {
