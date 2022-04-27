@@ -58,16 +58,16 @@ func TestResultColorUnmarshalJSON(t *testing.T) {
 }
 
 func TestLetterResultsFromDiff(t *testing.T) {
-	target := "great"
+	target := "GREAT"
 
 	// Simple match
-	guess1 := "goats"
+	guess1 := "GOATS"
 	expected1 := `[
-		{"Letter": "g", "Result": "right"},
-		{"Letter": "o", "Result": "wrong"},
-		{"Letter": "a", "Result": "misplaced"},
-		{"Letter": "t", "Result": "misplaced"},
-		{"Letter": "s", "Result": "wrong"}
+		{"Letter": "G", "Result": "right"},
+		{"Letter": "O", "Result": "wrong"},
+		{"Letter": "A", "Result": "misplaced"},
+		{"Letter": "T", "Result": "misplaced"},
+		{"Letter": "S", "Result": "wrong"}
 	]`
 	result1, correct1 := LetterResultsFromDiff(guess1, target)
 	json1, _ := json.Marshal(result1)
@@ -75,27 +75,27 @@ func TestLetterResultsFromDiff(t *testing.T) {
 	assert.False(t, correct1)
 
 	// Testing double letter
-	guess2 := "greet"
+	guess2 := "GREET"
 	expected2 := `[
-		{"Letter": "g", "Result": "right"},
-		{"Letter": "r", "Result": "right"},
-		{"Letter": "e", "Result": "right"},
-		{"Letter": "e", "Result": "wrong"},
-		{"Letter": "t", "Result": "right"}
+		{"Letter": "G", "Result": "right"},
+		{"Letter": "R", "Result": "right"},
+		{"Letter": "E", "Result": "right"},
+		{"Letter": "E", "Result": "wrong"},
+		{"Letter": "T", "Result": "right"}
 	]`
 	result2, correct2 := LetterResultsFromDiff(guess2, target)
 	json2, _ := json.Marshal(result2)
 	assert.JSONEq(t, expected2, string(json2))
 	assert.False(t, correct2)
 
-	// Testing correct
-	guess3 := "great"
+	// Testing correct guess
+	guess3 := "GREAT"
 	expected3 := `[
-		{"Letter": "g", "Result": "right"},
-		{"Letter": "r", "Result": "right"},
-		{"Letter": "e", "Result": "right"},
-		{"Letter": "a", "Result": "right"},
-		{"Letter": "t", "Result": "right"}
+		{"Letter": "G", "Result": "right"},
+		{"Letter": "R", "Result": "right"},
+		{"Letter": "E", "Result": "right"},
+		{"Letter": "A", "Result": "right"},
+		{"Letter": "T", "Result": "right"}
 	]`
 	result3, correct3 := LetterResultsFromDiff(guess3, target)
 	json3, _ := json.Marshal(result3)
@@ -103,14 +103,14 @@ func TestLetterResultsFromDiff(t *testing.T) {
 	assert.True(t, correct3)
 
 	//Test double letters where the first is wrong and the second is correct
-	target4 := "brews"
-	guess4 := "beers"
+	target4 := "BREWS"
+	guess4 := "BEERS"
 	expected4 := `[
-		{"Letter": "b", "Result": "right"},
-		{"Letter": "e", "Result": "wrong"},
-		{"Letter": "e", "Result": "right"},
-		{"Letter": "r", "Result": "misplaced"},
-		{"Letter": "s", "Result": "right"}
+		{"Letter": "B", "Result": "right"},
+		{"Letter": "E", "Result": "wrong"},
+		{"Letter": "E", "Result": "right"},
+		{"Letter": "R", "Result": "misplaced"},
+		{"Letter": "S", "Result": "right"}
 	]`
 	result4, correct4 := LetterResultsFromDiff(guess4, target4)
 	json4, _ := json.Marshal(result4)
@@ -118,14 +118,14 @@ func TestLetterResultsFromDiff(t *testing.T) {
 	assert.False(t, correct4)
 
 	//Test double letters where the first is misplaced and the second is correct
-	target5 := "bleed"
-	guess5 := "beers"
+	target5 := "BLEED"
+	guess5 := "BEERS"
 	expected5 := `[
-		{"Letter": "b", "Result": "right"},
-		{"Letter": "e", "Result": "misplaced"},
-		{"Letter": "e", "Result": "right"},
-		{"Letter": "r", "Result": "wrong"},
-		{"Letter": "s", "Result": "wrong"}
+		{"Letter": "B", "Result": "right"},
+		{"Letter": "E", "Result": "misplaced"},
+		{"Letter": "E", "Result": "right"},
+		{"Letter": "R", "Result": "wrong"},
+		{"Letter": "S", "Result": "wrong"}
 	]`
 	result5, correct5 := LetterResultsFromDiff(guess5, target5)
 	json5, _ := json.Marshal(result5)
