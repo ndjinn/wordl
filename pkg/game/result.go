@@ -62,7 +62,7 @@ func (r ResultColor) fgColor() color.Color {
 	case Wrong:
 		c = color.FgWhite
 	}
-	// Assuming all wrong colors are gray
+
 	return c
 }
 
@@ -78,7 +78,7 @@ func (r ResultColor) bgColor() color.Color {
 	case Wrong:
 		c = color.BgGray
 	}
-	// Assuming all wrong colors are gray
+
 	return c
 }
 

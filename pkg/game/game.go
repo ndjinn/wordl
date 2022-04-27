@@ -111,6 +111,8 @@ func (game *Game) GameStateMessage() {
 	var msg string
 	switch game.State {
 	default:
+		msg = "WORD-L"
+	case InProgress:
 		ml := game.config.MaxGuess - len(game.Guesses)
 		msg = fmt.Sprintf("The game's not over yet!  You have %v turns left!", ml)
 	case Victory:
