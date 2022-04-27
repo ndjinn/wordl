@@ -3,8 +3,10 @@ package words
 import (
 	"bufio"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/ndjinn/wordl/pkg/common"
 )
@@ -84,4 +86,10 @@ func (w *Words) InFullWords(gs string) bool {
 
 func (w *Words) InReducedWords(gs string) bool {
 	return w.inList(gs, false)
+}
+
+func (w *Words) RandomWord() string {
+	rand.Seed(time.Now().UnixNano())
+	ri := rand.Intn(len(w.fullList))
+	return w.fullList[ri]
 }

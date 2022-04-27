@@ -103,24 +103,28 @@ func LetterResultsFromDiff(guess string, target string) ([]LetterResult, bool) {
 
 	for i := 0; i < len(guess); i++ {
 		element := guess[i]
-		result := Wrong
 		if element == target[i] {
-			result = Right
+			diff[i] = LetterResult{Letter: string(element), Result: Right}
 			matched[i] = true
 		} else {
-			for j := 0; j < len(target); j++ {
-				if !matched[j] && element == target[j] {
-					result = Misplaced
-					matched[j] = true
-					break
-				}
+			isCorrect = false
+		}
+	}
+
+	for i := 0; i < len(diff); i++ {
+		if diff[i].Letter != "" {
+			continue
+		}
+		element := guess[i]
+		result := Wrong
+		for j := 0; j < len(target); j++ {
+			if !matched[j] && element == target[j] {
+				result = Misplaced
+				matched[j] = true
+				break
 			}
 		}
 		diff[i] = LetterResult{Letter: string(element), Result: result}
-
-		if result == Wrong {
-			isCorrect = false
-		}
 	}
 
 	return diff, isCorrect
