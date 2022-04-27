@@ -44,11 +44,15 @@ func NewGame(conf *GameConfig) *Game {
 	}
 }
 
-func Play() {
+func Play(cheat bool) {
 	fmt.Println("Welcome to Word-L")
 	config := &GameConfig{WordFile: "./dict.txt", MaxGuess: 6, Interactive: true}
 	game := NewGame(config)
-	fmt.Println(game.target)
+
+	if cheat {
+		fmt.Printf("Cheater, your word is '%v'\n", game.target)
+	}
+
 	for game.State == InProgress {
 		input := GetInputWord()
 		valid := game.MakeGuess(input)

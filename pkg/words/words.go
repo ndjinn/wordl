@@ -53,7 +53,9 @@ func NewWordsFromFile(path string) *Words {
 func (w *Words) ReducedList() []string {
 	var list []string
 	for _, val := range w.reducedList {
-		list = append(list, *val)
+		if val != nil {
+			list = append(list, *val)
+		}
 	}
 	return list
 }
@@ -92,4 +94,35 @@ func (w *Words) RandomWord() string {
 	rand.Seed(time.Now().UnixNano())
 	ri := rand.Intn(len(w.fullList))
 	return w.fullList[ri]
+}
+
+/*
+inc cases:
+	true -> remove if the index selection is not met
+	false -> remove if the index selection is met
+*/
+func (w *Words) ReduceByPosition(letter string, ind int, inc bool) {
+	for i := 0; i < len(w.reducedList); i++ {
+		match := false
+		if letter == *w.reducedList[i] {
+			match = true
+		}
+
+		if match != inc {
+			w.reducedList[i] = nil
+		}
+	}
+}
+
+func (w *Words) ReduceByCount(letter string, count int, inc bool) {
+	for i := 0; i < len(w.reducedList); i++ {
+		var match bool
+		if strings.Count(*w.reducedList[i], letter) >= count {
+			match = true
+		}
+
+		if match != inc {
+			w.reducedList[i] = nil
+		}
+	}
 }
