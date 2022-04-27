@@ -1,10 +1,14 @@
 package game
 
-import "github.com/ndjinn/wordl/pkg/words"
+import (
+	"github.com/ndjinn/wordl/pkg/words"
+)
 
 type GameConfig struct {
-	wordFile string
-	maxGuess uint
+	WordFile    string
+	MaxGuess    int
+	Output      string
+	Interactive bool
 }
 
 type Game struct {

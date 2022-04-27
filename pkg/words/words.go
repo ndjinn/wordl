@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/ndjinn/wordl/pkg/common"
 )
 
 type Words struct {
@@ -73,12 +75,7 @@ func (w *Words) inList(gs string, r bool) bool {
 		wl = w.FullList()
 	}
 
-	for _, val := range wl {
-		if val == ugs {
-			return true
-		}
-	}
-	return false
+	return common.StrInList(ugs, wl)
 }
 
 func (w *Words) InFullWords(gs string) bool {

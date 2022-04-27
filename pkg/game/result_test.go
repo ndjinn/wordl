@@ -56,3 +56,31 @@ func TestResultColorUnmarshalJSON(t *testing.T) {
 	assert.Equal(t, Misplaced, m)
 	assert.Equal(t, Wrong, w)
 }
+
+func TestLetterResultsFromDiff(t *testing.T) {
+	target := "great"
+
+	guess1 := "goats"
+	expected1 := `[
+		{"Letter": "g", "Result": "right"},
+		{"Letter": "o", "Result": "wrong"},
+		{"Letter": "a", "Result": "misplaced"},
+		{"Letter": "t", "Result": "misplaced"},
+		{"Letter": "s", "Result": "wrong"}
+	]`
+	result1 := LetterResultsFromDiff(guess1, target)
+	json1, _ := json.Marshal(result1)
+	assert.JSONEq(t, expected1, string(json1))
+
+	guess2 := "greet"
+	expected2 := `[
+		{"Letter": "g", "Result": "right"},
+		{"Letter": "r", "Result": "right"},
+		{"Letter": "e", "Result": "right"},
+		{"Letter": "e", "Result": "wrong"},
+		{"Letter": "t", "Result": "right"}
+	]`
+	result2 := LetterResultsFromDiff(guess2, target)
+	json2, _ := json.Marshal(result2)
+	assert.JSONEq(t, expected2, string(json2))
+}
