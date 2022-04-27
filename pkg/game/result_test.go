@@ -68,9 +68,10 @@ func TestLetterResultsFromDiff(t *testing.T) {
 		{"Letter": "t", "Result": "misplaced"},
 		{"Letter": "s", "Result": "wrong"}
 	]`
-	result1 := LetterResultsFromDiff(guess1, target)
+	result1, correct1 := LetterResultsFromDiff(guess1, target)
 	json1, _ := json.Marshal(result1)
 	assert.JSONEq(t, expected1, string(json1))
+	assert.False(t, correct1)
 
 	guess2 := "greet"
 	expected2 := `[
@@ -80,7 +81,21 @@ func TestLetterResultsFromDiff(t *testing.T) {
 		{"Letter": "e", "Result": "wrong"},
 		{"Letter": "t", "Result": "right"}
 	]`
-	result2 := LetterResultsFromDiff(guess2, target)
+	result2, correct2 := LetterResultsFromDiff(guess2, target)
 	json2, _ := json.Marshal(result2)
 	assert.JSONEq(t, expected2, string(json2))
+	assert.False(t, correct2)
+
+	guess3 := "great"
+	expected3 := `[
+		{"Letter": "g", "Result": "right"},
+		{"Letter": "r", "Result": "right"},
+		{"Letter": "e", "Result": "right"},
+		{"Letter": "a", "Result": "right"},
+		{"Letter": "t", "Result": "right"}
+	]`
+	result3, correct3 := LetterResultsFromDiff(guess3, target)
+	json3, _ := json.Marshal(result3)
+	assert.JSONEq(t, expected3, string(json3))
+	assert.True(t, correct3)
 }

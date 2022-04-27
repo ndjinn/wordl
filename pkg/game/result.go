@@ -96,9 +96,10 @@ func (l *LetterResult) letterResultColorString() string {
 	return l.Result.resultColorString(l.Letter)
 }
 
-func LetterResultsFromDiff(guess string, target string) []LetterResult {
+func LetterResultsFromDiff(guess string, target string) ([]LetterResult, bool) {
 	diff := make([]LetterResult, len(guess))
 	matched := make([]bool, len(target))
+	isCorrect := true
 
 	for i := 0; i < len(guess); i++ {
 		element := guess[i]
@@ -116,7 +117,11 @@ func LetterResultsFromDiff(guess string, target string) []LetterResult {
 			}
 		}
 		diff[i] = LetterResult{Letter: string(element), Result: result}
+
+		if result == Wrong {
+			isCorrect = false
+		}
 	}
 
-	return diff
+	return diff, isCorrect
 }

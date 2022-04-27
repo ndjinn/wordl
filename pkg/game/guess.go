@@ -3,13 +3,14 @@ package game
 import "fmt"
 
 type Guess struct {
-	Word   string
-	Result []LetterResult
+	Word    string
+	Result  []LetterResult
+	Correct bool
 }
 
 func NewGuess(guess string, target string) *Guess {
 	g := &Guess{Word: guess}
-	g.Result = LetterResultsFromDiff(guess, target)
+	g.Result, g.Correct = LetterResultsFromDiff(guess, target)
 	return g
 }
 
